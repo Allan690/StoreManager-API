@@ -1,9 +1,6 @@
 import json
 import unittest
-import os
-from src import app
-
-
+from app import app
 class TestSetUp(unittest.TestCase):
     """Initialize the app with test data"""
 
