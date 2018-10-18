@@ -1,15 +1,11 @@
 import unittest
-from app import flaskApp
-from app.api.v1.models import Product
-from app.api.v1.models import Sales
-from app.api.v1.models import User
+from app import flask_app
 
 
 class TestSetUp(unittest.TestCase):
     """Initialize the app with test data"""
-
     def setUp(self):
-        self.app = flaskApp.test_client()
+        self.app = flask_app.test_client()
         self.user = dict(email="testuser@gmail.com", password="testpass1234")
         self.un_known_user = dict(email="username@gmail.com", password="password")
         self.missing_email = dict(email="", password="testpass")
