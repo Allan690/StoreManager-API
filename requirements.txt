@@ -21,6 +21,7 @@ pycodestyle==2.4.0
 PyJWT==1.6.4
 pylint==2.1.1
 pytest==3.9.1
+python-dotenv==0.9.1
 six==1.11.0
 typed-ast==1.1.0
 Werkzeug==0.14.1
