@@ -1,13 +1,6 @@
 language : python
 python :
   - "3.6"
-env:
-- CC_TEST_REPORTER_ID=befb8c39d2157294649f0944c09d29e15e93d32dc54a06d705d70e314e5b8b2d
-addons:
-  postgresql: "9.6"
-  # chrome: stable # Re-enable for functional tests
-services:
-  - postgresql
 install:
   - pip install -r requirements.txt
   - pip install coveralls
@@ -16,9 +9,7 @@ before_script:  # code coverage tool
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  nosetests --with-coverage --cover-package=app
-after_script:
-  - coverage xml
-  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage; fi  # Upload coverage/codeclimate.json
+  - nosetests --with-coverage --cover-package=app
+  - coveralls
 after_success:
  - coveralls
