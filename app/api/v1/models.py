@@ -1,4 +1,4 @@
-import uuid
+import re
 
 
 class User(object):
@@ -7,14 +7,32 @@ class User(object):
     def __init__(self):
         self.users = {}
 
-    def create_user(self, username, password, admin=False):
+    def create_user(self, email, password, admin=False):
         """Creates a new user and appends them to the list of users"""
-        data = {'id': uuid.uuid4(),
-                'email': username,
+        data = {'id': len(self.users) + 1,
+                'email': email,
                 'password': password,
                 'admin': admin}
-        self.users[username] = data
+        self.users[email] = data
         return self.users
+
+    def get_all_users(self):
+        """Gets all users in the users list"""
+        return self.users
+
+    def find_user_by_id(self, user_id):
+        """finds a user in the list using his user id"""
+        if self.users:
+            for user in self.users.values():
+                if user.get('id') == user_id:
+                    return user
+
+    @staticmethod
+    def validate_email(email):
+        """This method uses a regular expression to validate email entered by user"""
+        if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
+            return True
+        return False
 
 
 class Product(object):
@@ -89,7 +107,7 @@ class Sales(object):
                     sale['description'] = description
                     sale['quantity'] = quantity
                     sale['total'] = total
-            return sale
+                    return sale
 
     def get_all_sales(self):
         """Returns the whole list of sales records"""
