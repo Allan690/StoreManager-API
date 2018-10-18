@@ -78,3 +78,4 @@ You can either do: `pytest app\tests` or `nosetests app\tests`
 ## License
 
 This project is licensed under the MIT License
+
