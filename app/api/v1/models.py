@@ -1,4 +1,5 @@
 import uuid
+import re
 
 
 class User(object):
@@ -6,6 +7,7 @@ class User(object):
 
     def __init__(self):
         self.users = {}
+        self.u_token = {}
 
     def create_user(self, username, password, admin=False):
         """Creates a new user and appends them to the list of users"""
@@ -16,6 +18,13 @@ class User(object):
         self.users[username] = data
         return self.users
 
+    @staticmethod
+    def validate_email(email):
+        """This method uses a regular expression to validate email entered by user"""
+        if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
+            return True
+        return False
+
 
 class Product(object):
     """Stores product data in dictionaries"""
@@ -23,13 +32,14 @@ class Product(object):
     def __init__(self):
         self.products = {}
 
-    def create_product(self, name, description, price, category):
+    def create_product(self, name, description, price, category, user_id):
         """Adds a new  product to products dictionary"""
         new_prod = {'prod_id': len(self.products) + 1,
                     'name': name,
                     'description': description,
                     'price': price,
-                    'category': category
+                    'category': category,
+                    'user_id': user_id
                     }
         self.products[name] = new_prod
         return self.products
@@ -62,13 +72,14 @@ class Sales(object):
     def __init__(self):
         self.Sales = {}
 
-    def create_sale(self, name, description, quantity, total):
+    def create_sale(self, name, description, quantity, total, user_id):
         """Adds a new sales record to the Sales dictionary"""
         new_sale = {'sales_id': len(self.Sales) + 1,
                     'name': name,
                     'description': description,
                     'quantity': quantity,
-                    'total': total
+                    'total': total,
+                    'user_id': user_id
                     }
         self.Sales[name] = new_sale
         return self.Sales
@@ -89,7 +100,7 @@ class Sales(object):
                     sale['description'] = description
                     sale['quantity'] = quantity
                     sale['total'] = total
-            return sale
+                    return sale
 
     def get_all_sales(self):
         """Returns the whole list of sales records"""
