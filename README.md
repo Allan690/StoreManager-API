@@ -40,9 +40,9 @@ You can either do: `pytest app\tests` or `nosetests app\tests`
 - virtual environment
 
 ## Running it on machine
-- source .env
+- source `.env`
 
-- flask run
+- `flask run`
 
 ## ENDPOINTS
 | Endpoint                                | FUNCTIONALITY |
