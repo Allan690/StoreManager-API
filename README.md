@@ -57,6 +57,10 @@ You can either do: `pytest app\tests` or `nosetests app\tests`
 | GET  /api/v1/products/productId                | retrieve a single product by id   |
 | GET  /api/v1/sales                             | retrieve all sale records |
 | GET  /api/v1/sales/salesId                 | retrieves a single sale record      | 
+| PUT  /api/v1/products                 | This will modify a product | 
+| PUT  /api/v1/sales                | This will modify a sales record  | 
+| DELETE  /api/v1/products/productId             | Deletes a product by its id    | 
+| DELETE  /api/v1/sales/salesId                 | Deletes a sales record by id  | 
 
       
        
