@@ -1,3 +1,4 @@
+import uuid
 import re
 
 
@@ -6,26 +7,16 @@ class User(object):
 
     def __init__(self):
         self.users = {}
+        self.u_token = {}
 
-    def create_user(self, email, password, admin=False):
+    def create_user(self, username, password, admin=False):
         """Creates a new user and appends them to the list of users"""
-        data = {'id': len(self.users) + 1,
-                'email': email,
+        data = {'id': uuid.uuid4(),
+                'email': username,
                 'password': password,
                 'admin': admin}
-        self.users[email] = data
+        self.users[username] = data
         return self.users
-
-    def get_all_users(self):
-        """Gets all users in the users list"""
-        return self.users
-
-    def find_user_by_id(self, user_id):
-        """finds a user in the list using his user id"""
-        if self.users:
-            for user in self.users.values():
-                if user.get('id') == user_id:
-                    return user
 
     @staticmethod
     def validate_email(email):
@@ -41,13 +32,14 @@ class Product(object):
     def __init__(self):
         self.products = {}
 
-    def create_product(self, name, description, price, category):
+    def create_product(self, name, description, price, category, user_id):
         """Adds a new  product to products dictionary"""
         new_prod = {'prod_id': len(self.products) + 1,
                     'name': name,
                     'description': description,
                     'price': price,
-                    'category': category
+                    'category': category,
+                    'user_id': user_id
                     }
         self.products[name] = new_prod
         return self.products
@@ -80,13 +72,14 @@ class Sales(object):
     def __init__(self):
         self.Sales = {}
 
-    def create_sale(self, name, description, quantity, total):
+    def create_sale(self, name, description, quantity, total, user_id):
         """Adds a new sales record to the Sales dictionary"""
         new_sale = {'sales_id': len(self.Sales) + 1,
                     'name': name,
                     'description': description,
                     'quantity': quantity,
-                    'total': total
+                    'total': total,
+                    'user_id': user_id
                     }
         self.Sales[name] = new_sale
         return self.Sales
