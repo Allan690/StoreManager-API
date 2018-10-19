@@ -1,5 +1,5 @@
-from flask import request, jsonify, Blueprint
-from werkzeug.security import generate_password_hash
+from flask import request, jsonify, session, Blueprint
+from werkzeug.security import generate_password_hash, check_password_hash
 from app.api.v1.models import User
 
 user_object = User()
@@ -11,7 +11,6 @@ user_dec = Blueprint('v1_user', __name__)  # authentication not enforced
 class UserViews:
     """This class contains the routes for the user endpoint"""
     """User can for now only register, reset password, get all users and search a user by id"""
-
     @user_dec.route('/api/v1/register', methods=['POST'])
     def create_user():
         """receive user input as json object"""
@@ -26,6 +25,34 @@ class UserViews:
             return jsonify({"Message": "Wrong email format: Enter a valid email address"}), 400
         user_object.create_user(data['email'], password_hash)
         return jsonify({"Message": "User registered successfully"}), 201
+
+    @user_dec.route('/api/v1/login', methods=['POST'])
+    def login():
+        """Log in and generate token"""
+        login_data = request.get_json()
+
+        if not login_data or not login_data['email'] or not login_data['password']:
+            return jsonify({"Message": "login required!"}), 401
+
+        if login_data['email'] not in user_object.users.keys():
+            return jsonify({"Message": "Email not found!"}), 401
+
+        if len(login_data['password']) < 8:
+            return jsonify({"Message": "login invalid!"}), 401
+
+        user = user_object.users[login_data['email']]
+        if check_password_hash(user['password'], login_data['password']):
+            session['loggedin'] = True
+            session['email'] = login_data['email']
+        return jsonify({"Message": "login invalid!"}), 401
+
+    @user_dec.route('/api/v1/logout', methods=['DELETE'])
+    def logout():
+        """Destroy user session"""
+        if session and session['loggedin']:
+            session.clear()
+            return jsonify({"Message": "logged out"}), 200
+        return jsonify({"Message": "Already logged out"}), 400
 
     @user_dec.route('/api/v1/reset-password', methods=['PUT'])
     def reset_password():
