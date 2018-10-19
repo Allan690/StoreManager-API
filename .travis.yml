@@ -1,8 +1,16 @@
 language : python
 python :
-  -"3.6"
-#command to install dependencies
+  - "3.6"
 install:
-  -pip install -r requirements.txt
+  - pip install -r requirements.txt
+  - pip install coveralls
+before_script:  # code coverage tool
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
-  nosetests --with-coverage --cover-package=app
+  - pytest
+  - nosetests --with-coverage --cover-package=app
+  - coveralls
+after_success:
+ - coveralls
