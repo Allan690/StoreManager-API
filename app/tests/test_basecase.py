@@ -1,16 +1,23 @@
 import unittest
-from app import flaskApp
-from app.api.v1.models import Product
-from app.api.v1.models import Sales
+import json
+from app import flask_app
 
 
 class TestSetUp(unittest.TestCase):
     """Initialize the app with test data"""
-
     def setUp(self):
-        self.app = flaskApp.test_client()
-        self.user = dict(email="testuser@gmail.com", password="testpass")
-        self.un_known_user = dict(email="username@gmail.com", password="password")
+        self.app = flask_app.test_client()
+        self.login_url = '/api/v1/auth/login'
+        self.user = dict(email="testuser@gmail.com", password="testpass1234")
+        self.unknown = dict(email="username@gmail.com", password="password")
+        self.register = self.app.post('/api/v1/auth/register',
+                                      data=json.dumps(self.user),
+                                      headers={"content-type": "application/json"})
+        self.login = self.app.post(self.login_url, data=json.dumps(self.user), content_type='application/json')
+        self.data = json.loads(self.login.get_data(as_text=True))
+        self.token = self.data['token']
+        self.app.post("/api/v1/auth/register", data=json.dumps(self.unknown),content_type="application/json")
+        self.missing_email = dict(email="", password="testpass")
         self.product = dict(name="Shoe Polish", description="Kiwi Shoe Polish", price="50", category="accessories")
         self.new_product = dict(name="Kiatu mzuri", description="Ni kiatu tu", price="1200",
                                 category="footware")
@@ -29,8 +36,10 @@ class TestSetUp(unittest.TestCase):
         self.missing_sale_quantity = dict(name="Spoons", description="Ni vijiko jamani", quantity="", total="3000")
         self.missing_sale_description = dict(name="Spoons", description="", quantity="120", total="3000")
         self.missing_sale_total = dict(name="Spoons", description="Ni vijiko jamani", quantity="120", total="")
-
-    def tearDown(self):
-        """destroys the test data after completion of tests"""
-        Product.products = []
-        Sales.Sales = []
+        self.wrong_email_format = dict(email="1234.xxx", password="testpass")
+        self.invalid_email = dict(emaile="testuser.gmail.com", password="invalid")
+        self.invalid_password = dict(email="testuser@gmail.com", password="t")
+        self.unknown_login = self.app.post("/api/v1/auth/login", data=json.dumps(self.unknown),
+                                           content_type="application/json")
+        self.data = json.loads(self.unknown_login.get_data(as_text=True))
+        self.unknown_token = self.data['token']
