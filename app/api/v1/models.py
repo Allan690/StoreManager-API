@@ -72,13 +72,14 @@ class Sales(object):
     def __init__(self):
         self.Sales = {}
 
-    def create_sale(self, name, description, quantity, total):
+    def create_sale(self, name, description, quantity, total, user_id):
         """Adds a new sales record to the Sales dictionary"""
         new_sale = {'sales_id': len(self.Sales) + 1,
                     'name': name,
                     'description': description,
                     'quantity': quantity,
-                    'total': total
+                    'total': total,
+                    'user_id': user_id
                     }
         self.Sales[name] = new_sale
         return self.Sales
