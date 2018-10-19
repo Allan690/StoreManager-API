@@ -6,10 +6,11 @@ user_object = User()
 user_dec = Blueprint('v1_user', __name__)  # authentication not enforced
 
 
+# user views implemented without authentication
 # noinspection PyMethodParameters
 class UserViews:
     """This class contains the routes for the user endpoint"""
-
+    """User can for now only register, reset password, get all users and search a user by id"""
     @user_dec.route('/api/v1/register', methods=['POST'])
     def create_user():
         """receive user input as json object"""

@@ -109,7 +109,5 @@ class TestSalesModel(TestSetUp):
         sales_obj = Sales()
         sales_obj.Sales.clear()
 
-
-
 if __name__ == "__main__":
     unittest.main()
