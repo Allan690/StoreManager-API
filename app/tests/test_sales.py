@@ -83,8 +83,8 @@ class TestSalesModel(TestSetUp):
     def test_sale_update(self):
         """Tests that the API can update a sale record"""
         response = self.app.put("/api/v1/sales/1",
-                                data=json.dumps(dict(name="Cups", description="Ni vikombe jamani", quantity="120",
-                                                     total="3000")),
+                                data=json.dumps(
+                                    dict(name="Cups", description="Ni vikombe jamani", quantity="120", total="3000")),
                                 content_type="application/json",
                                 headers={"x-access-token": self.token})
         self.assertEqual(response.status_code, 200)
