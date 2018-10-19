@@ -105,7 +105,10 @@ class TestSalesModel(TestSetUp):
         self.assertIn("already exists", response_msg["Message"])
 
     def tearDown(self):
-        Sales.Sales = []
+        """Creates a sales object and uses it to destroy the sales dictionary"""
+        sales_obj = Sales()
+        sales_obj.Sales.clear()
+
 
 
 if __name__ == "__main__":

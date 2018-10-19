@@ -97,7 +97,9 @@ class TestProductModel(TestSetUp):
         self.assertIn("already exists", response_msg["Message"])
 
     def tearDown(self):
-        Product.products = []
+        prod_obj = Product()
+        prod_obj.products.clear()
+
 
 
 if __name__ == "__main__":
