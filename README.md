@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/Allan690/StoreManager-API.svg?branch=develop)](https://travis-ci.com/Allan690/StoreManager-API)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8c940897901ce84ceeb6/maintainability)](https://codeclimate.com/github/Allan690/StoreManager-API/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/Allan690/StoreManager-API/badge.svg?branch=develop)](https://coveralls.io/github/Allan690/StoreManager-API?branch=develop)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8add588aea5f4eeb941b7f166cc7bdf9)](https://www.codacy.com/app/Allan690/StoreManager-API?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Allan690/StoreManager-API&amp;utm_campaign=Badge_Grade)
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/3b5f48196e4b3a68d97c)
