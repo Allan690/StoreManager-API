@@ -1,8 +1,7 @@
 [![Build Status](https://travis-ci.com/Allan690/StoreManager-API.svg?branch=develop)](https://travis-ci.com/Allan690/StoreManager-API)
-[![Maintainability](https://api.codeclimate.com/v1/badges/4d3b5c08dcfcee62cac2/maintainability)](https://codeclimate.com/github/Allan690/StoreManager-API/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/Allan690/StoreManager-API/badge.svg?branch=develop)](https://coveralls.io/github/Allan690/StoreManager-API?branch=develop)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/8add588aea5f4eeb941b7f166cc7bdf9)](https://www.codacy.com/app/Allan690/StoreManager-API?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Allan690/StoreManager-API&amp;utm_campaign=Badge_Grade)
-
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/3b5f48196e4b3a68d97c)
 
 # Store Manager API
 Store Manager is a web application that helps store owners manage sales and product inventory records. This application is meant for use in a single store.
@@ -15,8 +14,8 @@ Store Manager is a web application that helps store owners manage sales and prod
 
 ## Optional Features
 1. Store owner can give admin rights to a store attendant.
-2.  Products should have categories.
-3.  Store attendants should be able to add products to specific categories.
+2. Products should have categories.
+3. Store attendants should be able to add products to specific categories.
 
 ## Getting Started
 
@@ -48,34 +47,25 @@ You can either do: `pytest app\tests` or `nosetests app\tests`
 | POST /api/v1/auth/login                    | This will login a registered user  |
 | POST /api/v1/auth/logout                   | This will log out a logged in user |
 | POST /api/v1/auth/reset-password           | This will reset the password       | 
-| POST  /api/v1/products                     | This will add a product       |
-| POST  /api/v1/sales                        | This will add a sale         | 
-| GET  /api/v1/products                          | This will get all products      |
-| GET  /api/v1/products/productId                | retrieve a single product by id   |
-| GET  /api/v1/sales                             | retrieve all sale records |
-| GET  /api/v1/sales/salesId                 | retrieves a single sale record      | 
-| PUT  /api/v1/products                 | This will modify a product | 
-| PUT  /api/v1/sales                | This will modify a sales record  | 
-| DELETE  /api/v1/products/productId             | Deletes a product by its id    | 
-| DELETE  /api/v1/sales/salesId                 | Deletes a sales record by id  | 
-
-      
-       
-       
-
+| POST  /api/v1/products                     | This will add a product            |
+| POST  /api/v1/sales                        | This will add a sale               | 
+| GET  /api/v1/products                      | This will get all products         |
+| GET  /api/v1/products/productId            | retrieve a single product by id    |
+| GET  /api/v1/sales                         | retrieve all sale records          |
+| GET  /api/v1/sales/salesId                 | retrieves a single sale record     | 
+| PUT  /api/v1/products                      | This will modify a product         | 
+| PUT  /api/v1/sales                         |This will modify a sales record     | 
+| DELETE  /api/v1/products/productId         |Deletes a product by its id         | 
+| DELETE  /api/v1/sales/salesId              | Deletes a sales record by id       | 
 
 ## Built With
 
 * [Flask](http://flask.pocoo.org/) -  The web framework used
 * [Pip](https://pypi.python.org/pypi/pip) -  Dependency Management
 
- 
-
 ## Authors
 
 * **Allan Mogusu** 
-
-
 
 ## License
 
