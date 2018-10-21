@@ -68,7 +68,7 @@ def login():
     if check_password_hash(user['password'], auth['password']):
         session['loggedin'] = True
         session['email'] = auth['email']
-        token = jwt.encode(dict(email=user['email'], exp=datetime.datetime.utcnow() + datetime.timedelta(minutes=20)),
+        token = jwt.encode(dict(email=user['email'], exp=datetime.datetime.utcnow() + datetime.timedelta(minutes=1440)),
                            os.getenv('SECRET'))
         user_object.u_token[user['email']] = token
         return jsonify({"token": token.decode('UTF-8')}), 200
