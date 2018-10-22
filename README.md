@@ -42,6 +42,7 @@ Response header
 }
 
 ```
+
 ## Getting Started
 
 1) Clone the repository by doing: `git clone https://github.com/Allan690/StoreManager-API.git`
