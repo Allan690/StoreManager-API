@@ -1,9 +1,11 @@
 from app.api.v1.views.user_view import login_token
 from flask import request, jsonify, Blueprint
 from app.api.v1.models import Sales
+from app.api.v1.models import Product
 
 sales_obj = Sales()
 sal = Blueprint('v1_sal', __name__)
+prod_obj = Product()
 
 
 # this class contains methods which define the application routes
@@ -34,8 +36,15 @@ class SalesViews(object):
         sales_obj.create_sale(data['name'],
                               data['quantity'],
                               data['description'],
-                              data['total'], user_id
+                              data['total'],
+                              data['prod_id'],
+                              user_id
                               )
+        if prod_obj:
+            for product in prod_obj.products.values():
+                if product.get('prod_id') == data['prod_id']:
+                    product['quantity'] -= data['quantity']
+
         return jsonify({"Message": "Sale registered successfully"}), 201
 
     @sal.route('/api/v1/sales/<int:sales_id>', methods=['GET'])
@@ -52,20 +61,18 @@ class SalesViews(object):
         """Updates a sale's details"""
         data = request.get_json()
         new_name = data['name']
-        new_quantity = data['quantity']
         new_description = data['description']
         new_total = data['total']
         sale = sales_obj.find_sale_by_id(sales_id)
         if sale:
             if current_user['email'] == sale['user_id']:
                 resp = sales_obj.update_sales(
-                    sales_id, new_name, new_quantity, new_description, new_total
+                    sales_id, new_name, new_description, new_total
                 )
                 if resp:
                     if new_name not in sales_obj.Sales:
                         return jsonify({'Message': 'Sale updated'}), 200
                     return jsonify({'Message': 'Sale name already exists'}), 400
-
         return jsonify({'Message': 'sale not found'}), 404
 
     @sal.route('/api/v1/sales', methods=['GET'])

@@ -70,7 +70,7 @@ class TestSalesModel(TestSetUp):
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertIn("required", response_msg["Message"])
 
-    def test_missing_price(self):
+    def test_missing_total(self):
         """Test that API should not accept missing sale total"""
         response = self.app.post("/api/v1/sales",
                                  data=json.dumps(self.missing_sale_total),
@@ -84,7 +84,8 @@ class TestSalesModel(TestSetUp):
         """Tests that the API can update a sale record"""
         response = self.app.put("/api/v1/sales/1",
                                 data=json.dumps(
-                                    dict(name="Cups", description="Ni vikombe jamani", quantity=20, total="3000")),
+                                    dict(name="Cups", description="Ni vikombe jamani", quantity=20, total="3000")
+                                ),
                                 content_type="application/json",
                                 headers={"x-access-token": self.token})
         self.assertEqual(response.status_code, 200)

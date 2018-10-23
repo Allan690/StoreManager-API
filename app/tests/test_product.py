@@ -63,7 +63,7 @@ class TestProductModel(TestSetUp):
     def test_missing_category(self):
         """Test that API should not accept missing product category"""
         response = self.app.post("/api/v1/products",
-                                 data=json.dumps(self.missing_prod_category),
+                                 data=json.dumps(self.missing_prod_quantity),
                                  content_type="application/json",
                                  headers={"x-access-token": self.token})
         self.assertEqual(response.status_code, 400)
@@ -74,7 +74,7 @@ class TestProductModel(TestSetUp):
         """Tests that the API can update a product"""
         response = self.app.put("/api/v1/products/1",
                                 data=json.dumps(dict(name="Cup", description="Ni kikombe tu", price="100",
-                                                     category="cutlery")),
+                                                     quantity=20)),
                                 content_type="application/json",
                                 headers={"x-access-token": self.token})
         self.assertEqual(response.status_code, 200)
@@ -90,7 +90,7 @@ class TestProductModel(TestSetUp):
                     name="spoon",
                     description="metallic spoon",
                     price="20",
-                    category="cutlery")),
+                    quantity=10)),
             content_type="application/json",
             headers={
                 "x-access-token": self.token}

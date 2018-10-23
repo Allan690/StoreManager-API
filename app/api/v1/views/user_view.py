@@ -25,7 +25,7 @@ def login_token(f):
             return jsonify({'Message': 'You need to log in'}), 401
 
         try:
-            data = jwt.decode(token, os.getenv('SECRET'))
+            data = jwt.decode(token, os.getenv('SECRET'), options={'verify_exp': False})
             if data['email'] in user_object.u_token:
                 current_user = user_object.users[data['email']]
             else:

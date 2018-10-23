@@ -21,8 +21,8 @@ class ProductViews(object):
         data = request.get_json()
         if not data or not data['name']:
             return jsonify({"Message": "Name is required!"}), 400
-        elif not data['category']:
-            return jsonify({"Message": "Category is required!"}), 400
+        elif not data['quantity']:
+            return jsonify({"Message": "Quantity is required!"}), 400
         elif not data['description']:
             return jsonify({"Message": "Description is required!"}), 400
 
@@ -32,7 +32,7 @@ class ProductViews(object):
         product_obj.create_product(data['name'],
                                    data['description'],
                                    data['price'],
-                                   data['category'], user_id
+                                   data['quantity'], user_id
                                    )
         return jsonify({"Message": "Product registered successfully"}), 201
 
@@ -52,11 +52,12 @@ class ProductViews(object):
         new_name = data['name']
         new_description = data['description']
         new_price = data['price']
+        new_quantity = data['quantity']
         product = product_obj.find_product_by_id(product_id)
         if product:
             if current_user['email'] == product['user_id']:
                 resp = product_obj.update_product(
-                    product_id, new_name, new_description, new_price
+                    product_id, new_name, new_description, new_price, new_quantity
                 )
                 if resp:
                     if new_name not in product_obj.products:
