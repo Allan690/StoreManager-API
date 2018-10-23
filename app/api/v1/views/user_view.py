@@ -47,7 +47,7 @@ def create_user():
     if data['email'] in user_object.users:
         return jsonify({'Message': "User already exists"}), 400
     if data['email'] == "" or data['password'] == "":
-        return jsonify({'Message': "Email and Password is required"}), 400
+        return jsonify({'Message': "Both email and password are required"}), 400
     for x in data['password']:
         if x.isspace():
             return jsonify({"Message": "Password can't contain spaces"}), 400
@@ -55,7 +55,6 @@ def create_user():
         return jsonify({"Message": "Password should have at least 8 characters"}), 400
     if validate_email:
         return jsonify({"Message": "Wrong email format: Enter a valid email address"}), 400
-
     user_object.create_user(data['email'], password_hash)
     return jsonify({"Message": "User registered successfully"}), 201
 
@@ -72,7 +71,6 @@ def login():
         return jsonify({"Message": "password is required"}), 401
     if auth['email'] not in user_object.users.keys():
         return jsonify({"Message": "Email not found!"}), 401
-
     user = user_object.users[auth['email']]
     if check_password_hash(user['password'], auth['password']):
         session['loggedin'] = True
