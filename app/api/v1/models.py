@@ -105,3 +105,4 @@ class Sales(object):
     def get_all_sales(self):
         """Returns the whole list of sales records"""
         return self.Sales
+
