@@ -31,7 +31,7 @@ def login_token(f):
             else:
                 return jsonify({"Message": "Token expired:Login again"}), 401
         except BaseException:
-            return jsonify({'Message': 'Invalid request!'}), 401
+            return jsonify({'Message': 'Invalid request!Token is invalid'}), 401
 
         return f(current_user, *args, **kwargs)
 
@@ -48,8 +48,14 @@ def create_user():
         return jsonify({'Message': "User already exists"}), 400
     if data['email'] == "" or data['password'] == "":
         return jsonify({'Message': "Email and Password is required"}), 400
+    for x in data['password']:
+        if x.isspace():
+            return jsonify({"Message": "Password can't contain spaces"}), 400
+    if len(data['password'].strip()) < 8:
+        return jsonify({"Message": "Password should have at least 8 characters"}), 400
     if validate_email:
         return jsonify({"Message": "Wrong email format: Enter a valid email address"}), 400
+
     user_object.create_user(data['email'], password_hash)
     return jsonify({"Message": "User registered successfully"}), 201
 
@@ -58,9 +64,12 @@ def create_user():
 def login():
     """Log in and generate token"""
     auth = request.get_json()
-    if not auth or not auth['email'] or not auth['password']:
-        return jsonify({"Message": "login required!"}), 401
-
+    if not auth:
+        return jsonify({"Message": "Email and password required!"}), 401
+    if not auth['email']:
+        return jsonify({"Message": "Email is required"}), 401
+    if not auth['password']:
+        return jsonify({"Message": "password is required"}), 401
     if auth['email'] not in user_object.users.keys():
         return jsonify({"Message": "Email not found!"}), 401
 
