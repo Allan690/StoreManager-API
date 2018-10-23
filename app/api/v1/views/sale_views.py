@@ -21,7 +21,7 @@ class SalesViews(object):
         data = request.get_json()
         if not data or not data['name']:
             return jsonify({"Message": "Name is required!"}), 400
-        elif not data['quantity']:
+        elif not data['quantity'] or data['quantity'] == 0:
             return jsonify({"Message": "Quantity is required!"}), 400
         elif not data['description']:
             return jsonify({"Message": "Description is required!"}), 400
@@ -80,7 +80,9 @@ class SalesViews(object):
         if sale:
             if current_user['email'] == sale['user_id']:
                 del sales_obj.Sales[sale['name']]
+
                 return jsonify({"Message": "Sale deleted successfully!"}), 200
+
             return jsonify({"Message": "Unauthorized: Sale deletion unauthorized!!"}), 401
 
         return jsonify({"Message": "Sale not found"}), 404
