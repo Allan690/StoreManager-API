@@ -26,6 +26,23 @@ class UserLoginClass(TestSetUp):
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertIn("required", response_msg["Message"])
 
+    def test_password_with_spaces(self):
+        """Tests error raised when password has spaces"""
+        response = self.app.post("/api/v1/auth/register",
+                                 data=json.dumps(self.password_spaced),
+                                 content_type="application/json")
+        self.assertEqual(response.status_code, 400)
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertIn("spaces", response_msg["Message"])
+
+    def test_password_length(self):
+        response = self.app.post("/api/v1/auth/register",
+                                 data=json.dumps(self.invalid_password),
+                                 content_type="application/json")
+        self.assertEqual(response.status_code, 400)
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertIn("8", response_msg["Message"])
+
     def test_missing_password(self):
         """Tests if error is raised when password is missing."""
         response = self.app.post("/api/v1/auth/register",
