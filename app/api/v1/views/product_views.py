@@ -1,6 +1,6 @@
 from app.api.v1.views.user_view import login_token
 from flask import request, jsonify, Blueprint
-from app.api.v1.models import Product
+from app.api.v1.models.product_models import Product
 
 product_obj = Product()
 prod = Blueprint('v1_prod', __name__)

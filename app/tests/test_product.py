@@ -1,7 +1,7 @@
 import json
 import unittest
 from app.tests.test_basecase import TestSetUp
-from app.api.v1.models import Product
+from app.api.v1.models.product_models import Product
 
 
 class TestProductModel(TestSetUp):

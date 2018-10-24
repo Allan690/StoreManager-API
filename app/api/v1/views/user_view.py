@@ -3,7 +3,7 @@ import datetime
 import os
 from flask import request, jsonify, session, Blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.api.v1.models import User
+from app.api.v1.models.user_models import User
 from functools import wraps
 
 user_object = User()

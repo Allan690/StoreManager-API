@@ -30,13 +30,13 @@ class TestSetUp(unittest.TestCase):
                                        quantity=50)
         self.new_product = dict(name="Kiatu mzuri", description="Ni kiatu tu", price="1200",
                                 quantity=40)
-        self.sale = dict(name="Shoes", description="All kinds of shoes", quantity=50, total="10000", prod_id=1)
-        self.new_sale = dict(name="Spoons", description="Ni vijiko jamani", quantity=120, total="3000", prod_id=2)
+        self.sale = dict(name="Shoes", description="All kinds of shoes", quantity=50, total="10000")
+        self.new_sale = dict(name="Spoons", description="Ni vijiko jamani", quantity=120, total="3000")
         self.empty_sale = dict(name="", description="", quantity=0, total="", prod_id=3)
-        self.missing_sale_quantity = dict(name="Spoons", description="Ni vijiko jamani", quantity=0, total="3000",
-                                          prod_id=4)
-        self.missing_sale_description = dict(name="Spoons", description="", quantity=120, total="3000", prod_id=5)
-        self.missing_sale_total = dict(name="Spoons", description="Ni vijiko jamani", quantity=120, total="", prod_id=6)
+        self.missing_sale_quantity = dict(name="Spoons", description="Ni vijiko jamani", quantity=0, total="3000"
+                                          )
+        self.missing_sale_description = dict(name="Spoons", description="", quantity=120, total="3000")
+        self.missing_sale_total = dict(name="Spoons", description="Ni vijiko jamani", quantity=120, total="")
         self.wrong_email_format = dict(email="1234.xxx", password="testpass")
         self.invalid_email = dict(emaile="testuser.gmail.com", password="invalid")
         self.invalid_password = dict(email="testuser3@gmail.com", password="t")

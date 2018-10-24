@@ -1,7 +1,7 @@
 from app.api.v1.views.user_view import login_token
 from flask import request, jsonify, Blueprint
-from app.api.v1.models import Sales
-from app.api.v1.models import Product
+from app.api.v1.models.sale_models import Sales
+from app.api.v1.models.product_models import Product
 
 sales_obj = Sales()
 sal = Blueprint('v1_sal', __name__)
@@ -37,14 +37,8 @@ class SalesViews(object):
                               data['quantity'],
                               data['description'],
                               data['total'],
-                              data['prod_id'],
                               user_id
                               )
-        if prod_obj:
-            for product in prod_obj.products.values():
-                if product.get('prod_id') == data['prod_id']:
-                    product['quantity'] -= data['quantity']
-
         return jsonify({"Message": "Sale registered successfully"}), 201
 
     @sal.route('/api/v1/sales/<int:sales_id>', methods=['GET'])
