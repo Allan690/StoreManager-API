@@ -1,0 +1,9 @@
+[report]
+	omit=
+		*/views/*
+		*/models/*
+		app/api/v1/utils.py
+		run.py
+		app/__init__.py
+
+	ignore_errors= True

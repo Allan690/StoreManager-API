@@ -1,7 +1,7 @@
 import json
 import unittest
 from app.tests.test_basecase import TestSetUp
-from app.api.v1.models import Product
+from app.api.v1.models.product_models import Product
 
 
 class TestProductModel(TestSetUp):
@@ -69,6 +69,26 @@ class TestProductModel(TestSetUp):
         self.assertEqual(response.status_code, 400)
         response_msg = json.loads(response.data.decode("UTF-8"))
         self.assertIn("required", response_msg["Message"])
+
+    def test_product_price_string(self):
+        """"Tests that the API should not accept product price as a string"""
+        response = self.app.post("/api/v1/products",
+                                 data=json.dumps(self.prod_price_string),
+                                 content_type="application/json",
+                                 headers={"x-access-token": self.token})
+        self.assertEqual(response.status_code, 400)
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertIn("number", response_msg["Message"])
+
+    def test_quantity_string(self):
+        """Tests that the API should not accept quantities that are strings"""
+        response = self.app.post("/api/v1/products",
+                                 data=json.dumps(self.quantity_string),
+                                 content_type="application/json",
+                                 headers={"x-access-token": self.token})
+        self.assertEqual(response.status_code, 400)
+        response_msg = json.loads(response.data.decode("UTF-8"))
+        self.assertIn("number", response_msg["Message"])
 
     def test_product_update(self):
         """Tests that the API can update a product"""

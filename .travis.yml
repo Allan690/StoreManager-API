@@ -9,7 +9,7 @@ before_script:  # code coverage tool
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - nosetests --with-coverage --cover-package=app
+  - nosetests --with-coverage --cover-package=tests
   - coveralls
 after_success:
  - coveralls
