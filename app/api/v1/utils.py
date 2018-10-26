@@ -6,7 +6,7 @@ user_object = User()
 sales_obj = Sales()
 prod_obj = Product()
 
-
+# validators for the view functionality
 def validate_user(data):
     validate_email = User.validate_email(data['email'])
     if data['email'] == "" or data['password'] == "":
